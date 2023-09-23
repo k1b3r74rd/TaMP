@@ -3,7 +3,7 @@ services:
   tamp:
     image: 'kibertard/tamp:latest'
     environment: 
-      - "PORT: 3000"
+      - "PORT:3000"
     ports:
       - "80:3000"
     volumes:
