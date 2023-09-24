@@ -9,23 +9,23 @@ pipeline{
 
         stage('Build'){
             steps{
-                sh "Build step git"
+                sh "echo Build step git"
             }
         }
         stage('Test'){
             steps{
-                sh 'Test step git'
+                sh 'echo Test step git'
             }
         }
         stage('Deploy')
         {
             steps{
-                sh "Deploy step git"
+                sh "echo Deploy step git"
             }
         }
         stage('Stage 5'){
             steps{
-                sh "Stage 5 step git"
+                sh "echo Stage 5 step git"
             }
         }
     }
