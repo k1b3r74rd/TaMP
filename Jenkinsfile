@@ -1,4 +1,4 @@
-node('ubuntu'){
+node('app'){
     def app
     stage('Cloning git'){
         steps{
