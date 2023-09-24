@@ -1,31 +1,33 @@
 pipeline{
     agent any
     stages{
-        stage('Cloning git'){
-            steps{
-                checkout scm
+        node('ubuntu'){
+            def app
+            stage('Cloning git'){
+                steps{
+                    checkout scm
+                }
             }
-        }
-
-        stage('Build'){
-            steps{
-                sh "echo Build step git"
+            stage('Build'){
+                steps{
+                    sh "echo Build step git"
+                    app = docker.build("kibertard/tamp")
+                }
             }
-        }
-        stage('Test'){
-            steps{
-                sh 'echo Test step git'
+            stage('Post-to-dockerhub'){
+                steps{
+                    sh 'echo Post-to-dockerhub'
+                    docker.withRegistry("https://registry.hub.docker.com","dockerhub_creds"){
+                        app.push("latest")}
+                }
             }
-        }
-        stage('Deploy')
-        {
-            steps{
-                sh "echo Deploy step git"
-            }
-        }
-        stage('Stage 5'){
-            steps{
-                sh "echo Stage 5 step git"
+            stage('Pull-image-server')
+            {
+                steps{
+                    sh "echo Pull-image-server"
+                    sh "docker-compose down"
+                    sh "docker-compose up -d"
+                }
             }
         }
     }
